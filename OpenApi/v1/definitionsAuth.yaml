@@ -1,0 +1,24 @@
+authResponse:
+  type: object
+  required:
+    - user_id
+    - email
+    - token
+    - expires_in
+    - role
+  properties:
+    user_id:
+      type: integer
+      example: 2
+    email:
+      type: string
+      example: "user1@hblab.vn"
+    token:
+      type: string
+      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+    expires_in:
+      type: datetime
+      example: 2021-07-01 08:59:59
+    role:
+      type: integer
+      example: 1

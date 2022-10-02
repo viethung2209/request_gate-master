@@ -1,0 +1,323 @@
+swagger: "2.0"
+info:
+  description: "An OpenAPI definition for the GitLab REST API."
+  version: "1.0.0"
+  title: "Teach lead 01 - library"
+  termsOfService: "https://git.hblab.vn/techlead/tl01/tl_01_library"
+host: "183.91.3.171:18088"
+basePath: "/api/v1"
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only call
+schemes:
+- "https"
+- "http"
+paths:
+  # book controller api
+  /book/create:
+    post:
+      tags:
+      - admins
+      summary: adds an book item
+      description: Adds an item to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: params
+        description: book item to add
+        schema:
+          $ref: 'v1/definitionsBook.yaml#/bookItemCreate'
+      responses:
+        200:
+          description: Create book successfully
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/bookResponse'
+        400:
+          description: invalid input, object invalid
+        422:
+          description: the request has error
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/bookValidateCreate'
+  /book:
+    put:
+      tags:
+      - admins
+      summary: update an book item
+      description: Update an item to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: params
+        description: book item to update
+        schema:
+          $ref: 'v1/definitionsBook.yaml#/bookItemUpdate'
+      responses:
+        200:
+          description: Update book successfully
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/bookResponse'
+        400:
+          description: invalid input, object invalid
+        422:
+          description: the request has error
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/bookValidateUpdate'
+  /book/{bookId}:
+    delete:
+      tags:
+      - admins
+      summary: delete an book item
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: bookId
+        type: integer
+        required: true
+        minimum: 1
+        description: The ID of the book to return.
+      responses:
+        200:
+          description: Delete book successfully
+        400:
+          description: invalid input, object invalid
+        422:
+          description: the request has error
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/bookValidateDelete'
+  /book/return:
+    post:
+      tags:
+        - admins
+      summary: return books to the library
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: book_id
+          type: integer
+          required: true
+          minimum: 1
+          description: The ID of the Book for return.
+        - in: path
+          name: user_id
+          type: integer
+          required: true
+          minimum: 1
+          description: The ID of the User for Return.
+      responses:
+        200:
+          description: Return book successfully
+        400:
+          description: Invalid input, object invalid
+        422:
+          description: The request has error
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/bookReturnValidate'
+  /book/search:
+    get:
+      summary: Returns a list of books.
+      description: Search books api.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: bookName
+        type: string
+        required: true
+      responses:
+        200:
+          description: A JSON array of books.
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/bookSearchResponse'
+        400:
+          description: The specified book name is invalid (not a string).
+  /book/request:
+    post:
+      summary: Create request to borrow book.
+      description: Create request to borrow book.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: bookId
+        type: integer
+        required: true
+      - in: path
+        name: userId
+        type: integer
+        required: true
+      responses:
+        201:
+          description: Request to borrow book successfully
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/requestResponse'
+        400:
+          description: The specified user id or book id is invalid.
+   # category controller api
+  /book/borrowed:
+    get:
+      tags:
+        - admins
+      summary: Returns a list of borrowed books.
+      description: Search borrowed books api.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: userId
+        type: integer
+        required: true
+      responses:
+        200:
+          description: A JSON array of books.
+          schema:
+            $ref: 'v1/definitionsBook.yaml#/bookSearchResponse'
+        400:
+          description: Opps! You haven't borrowed any books.
+   # category controller api
+  /categories:
+    get:
+      tags:
+      - admins
+      summary: list category
+      description: List items to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        200:
+          description: List category successfully
+          schema:
+            $ref: 'v1/definitionsCategory.yaml#/categoryResponseList'
+        400:
+          description: invalid input, object invalid
+  /category/create:
+    post:
+      tags:
+      - admins
+      summary: adds an category item
+      description: Adds an item to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: params
+        description: category item to add
+        schema:
+          $ref: 'v1/definitionsCategory.yaml#/categoryItemCreate'
+      responses:
+        201:
+          description: Create category successfully
+          schema:
+            $ref: 'v1/definitionsCategory.yaml#/categoryResponse'
+        400:
+          description: invalid input, object invalid
+        422:
+          description: the request has error
+          schema:
+            $ref: 'v1/definitionsCategory.yaml#/categoryValidateCreate'
+  /category:
+    put:
+      tags:
+      - admins
+      summary: update an category item
+      description: Update an item to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: params
+        description: category item to update
+        schema:
+          $ref: 'v1/definitionsCategory.yaml#/categoryItemUpdate'
+      responses:
+        200:
+          description: Update category successfully
+          schema:
+            $ref: 'v1/definitionsCategory.yaml#/categoryResponse'
+        400:
+          description: invalid input, object invalid
+        422:
+          description: the request has error
+          schema:
+            $ref: 'v1/definitionsCategory.yaml#/categoryValidateUpdate'
+  /category/{categoryId}:
+    delete:
+      tags:
+      - admins
+      summary: delete an category item
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: categoryId
+        type: integer
+        required: true
+        minimum: 1
+        description: The ID of the category to return.
+      responses:
+        200:
+          description: Delete category successfully
+        400:
+          description: invalid input, object invalid
+        422:
+          description: the request has error
+          schema:
+            $ref: 'v1/definitionsCategory.yaml#/categoryValidateDelete'
+
+  /auth/google/redirect:
+    get:
+      tags:
+        - default
+      summary: Redriect to Google
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Redriect to "/api/auth/google/callback"
+        500:
+          description: Server error
+  /auth/google/callback:
+    get:
+      tags:
+        - default
+      summary: Login with google callback
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Login success
+          schema:
+            $ref: 'v1/definitionsAuth.yaml#/authResponse'
+        500:
+          description: Server error
+

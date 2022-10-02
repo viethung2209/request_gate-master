@@ -1,0 +1,140 @@
+bookItemCreate:
+  type: object
+  required:
+  - name
+  - category_id
+  properties:
+    name:
+      type: string
+      example: Clean Architecture
+    description:
+      type: string
+      example: While researching the various techniques, I noticed that Clean Architecture.
+    author:
+      type: string
+      example: Robert Martin
+    category_id:
+      type: integer
+      example: 1
+    quantity:
+      type: integer
+      example: 100
+bookItemUpdate:
+  type: object
+  required:
+  - id
+  - name
+  - category_id
+  properties:
+    id:
+      type: integer
+      example: 1
+    name:
+      type: string
+      example: Clean Architecture
+    description:
+      type: string
+      example: While researching the various techniques, I noticed that Clean Architecture.
+    author:
+      type: string
+      example: Robert Martin
+    category_id:
+      type: integer
+      example: 1
+    quantity:
+      type: integer
+      example: 100
+bookResponse:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    name:
+      type: string
+      example: Clean Architecture
+    description:
+      type: string
+      example: While researching the various techniques, I noticed that Clean Architecture.
+    author:
+      type: string
+      example: Robert Martin
+    category_id:
+      type: integer
+      example: 1
+    quantity:
+      type: integer
+      example: 100
+bookSearchResponse:
+  type: array
+  items:
+    $ref: 'definitionsBook.yaml#/bookResponse'
+requestResponse:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    user_id:
+      type: integer
+      example: 1
+    book_id:
+      type: integer
+      example: 1
+    date_start:
+      type: string
+      example: 2021/01/01 12:59:59
+    date_end:
+      type: string
+      example: 2021/01/01 12:59:59
+    status:
+      type: integer
+      example: 1
+bookValidateCreate:
+  type: object
+  properties:
+    message:
+      type: object
+      properties:
+        name:
+          type: string
+          example: The book already exists
+        category:
+          type: string
+          example: The category doesn't exists
+bookValidateUpdate:
+  type: object
+  properties:
+    message:
+      type: object
+      properties:
+        id:
+          type: string
+          example: The book doesn't exists
+        name:
+          type: string
+          example: The book already exists
+        category:
+          type: string
+          example: The category doesn't exists
+bookValidateDelete:
+  type: object
+  properties:
+    message:
+      type: string
+      example: The book doesn't exists
+bookReturnValidate:
+  type: object
+  required:
+    - book_id
+    - user_id
+  properties:
+    message:
+      type: object
+      properties:
+        book_id:
+          type: integer
+          example: "The Book not exists"
+        user_id:
+          type: integer
+          example: "The User not exists"

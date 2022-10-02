@@ -1,0 +1,86 @@
+categoryItemCreate:
+  type: object
+  required:
+  - name
+  properties:
+    name:
+      type: string
+      example: Self help
+categoryItemUpdate:
+  type: object
+  required:
+  - id
+  - name
+  properties:
+    id:
+      type: integer
+      example: 1
+    name:
+      type: string
+      example: Technology
+categoryResponse:
+  type: object
+  properties:
+    data:
+      type: object
+      properties:
+        category:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: Self help
+categoryValidateCreate:
+  type: object
+  properties:
+    message:
+      type: object
+      properties:
+        name:
+          type: string
+          example: The category already exists
+categoryValidateUpdate:
+  type: object
+  properties:
+    message:
+      type: object
+      properties:
+        id:
+          type: string
+          example: The category doesn't exists
+        name:
+          type: string
+          example: The category already exists
+categoryValidateDelete:
+  type: object
+  properties:
+    message:
+      type: string
+      example: The category doesn't exists
+categoryResponseList:
+  type: object
+  properties:
+    data:
+      type: object
+      properties:
+        "0":
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: Self help
+        "1":
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: Self help2
